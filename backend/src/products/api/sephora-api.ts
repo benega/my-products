@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { ProductSearchInfo } from './product-search-info';
+import { Product } from '../models/product';
 import { ProductsSearchApi } from './products-search-api';
 
 const sanitizePrice = (priceStr: string): number => {
@@ -17,13 +17,13 @@ const prepareRequestOptions = (query: string): AxiosRequestConfig<any> => ({
 });
 
 export class SephoraApi implements ProductsSearchApi {
-  async search(query: string): Promise<ProductSearchInfo[]> {
+  async search(query: string): Promise<Product[]> {
     try {
       const res = await axios.request(prepareRequestOptions(query));
       return res.data.products.map(
-        (p): ProductSearchInfo => ({
+        (p): Product => ({
           name: p.productName,
-          picture: p.image250,
+          pictureUrl: p.image250,
           price: sanitizePrice(p.currentSku.listPrice),
         }),
       );

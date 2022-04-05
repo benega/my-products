@@ -7,7 +7,16 @@ export class ProductsController {
 
   @Get()
   async searchProducts(@Query('query') query: string) {
+    console.log('searchProducts', query);
+    console.log('searchProducts decodeURI', decodeURI(query));
     return this.productsService.search(query);
+  }
+
+  @Get()
+  async getByName(@Query('name') name: string) {
+    console.log('searchProducts', name);
+    console.log('searchProducts decodeURI', decodeURI(name));
+    return this.productsService.getByName(name);
   }
 
   @Get('/favourites')

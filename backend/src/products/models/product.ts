@@ -1,6 +1,6 @@
 export type Product = {
-  id: string;
   name: string;
   price: number;
-  isFavourited: boolean;
+  pictureUrl: string;
+  isFavourited?: boolean;
 };

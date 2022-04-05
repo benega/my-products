@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ProductsSearchFacade } from 'src/infra/products-search-apis/products-search-facade';
+import { ProductsSearchFacade } from './api/products-search-facade';
 import { Product } from './models/product';
 
 @Injectable()
@@ -7,13 +7,18 @@ export class ProductsService {
   constructor(private productsSearch: ProductsSearchFacade) {}
 
   async search(query: string): Promise<Product[]> {
-    const search = await this.productsSearch.search(query);
-    return search.map((p) => ({
-      id: '',
-      isFavourited: false,
-      name: p.name,
-      price: p.price,
-    }));
+    return this.productsSearch.search(query);
+  }
+
+  async getByName(name: string): Promise<Product> {
+    const res = await this.search(name);
+    console.log(
+      'getByName',
+      name,
+      res,
+      res.find((p) => p.name == name),
+    );
+    return res.find((p) => p.name == name);
   }
 
   async getFavourites(query: string): Promise<Product[]> {
