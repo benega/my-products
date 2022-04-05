@@ -3,25 +3,27 @@ import { ProductSearchInfo } from './product-search-info';
 import { ProductsSearchApi } from './products-search-api';
 
 const sanitizePrice = (priceStr: string): number => {
-  const res = priceStr.split('-')[0].replace('$', '');
-  console.log('sanitizePrice', res);
-  return Number(res);
+  return Number(priceStr.split('-')[0].replace('$', ''));
 };
+
+const prepareRequestOptions = (query: string): AxiosRequestConfig<any> => ({
+  method: 'GET',
+  url: process.env.SEPHORA_API_URL,
+  params: { q: query, pageSize: '100', currentPage: '1' },
+  headers: {
+    'X-RapidAPI-Host': process.env.SEPHORA_API_HOST,
+    'X-RapidAPI-Key': process.env.SEPHORA_API_KEY,
+  },
+});
 
 export class SephoraApi implements ProductsSearchApi {
   async search(query: string): Promise<ProductSearchInfo[]> {
-    const options: AxiosRequestConfig<any> = {
-      method: 'GET',
-      url: 'https://sephora.p.rapidapi.com/products/search',
-      params: { q: query, pageSize: '100', currentPage: '1' },
-      headers: {
-        'X-RapidAPI-Host': 'sephora.p.rapidapi.com',
-        'X-RapidAPI-Key': '70de8bc5b3msh7985f146c2a8404p10a7e0jsn80e2d8f6a2c1',
-      },
-    };
+    console.log('MONGO_URI', process.env.MONGO_URI);
+    console.log('SEPHORA_API_HOST', process.env.SEPHORA_API_HOST);
+    console.log('SEPHORA_API_KEY', process.env.SEPHORA_API_KEY);
 
     try {
-      const res = await axios.request(options);
+      const res = await axios.request(prepareRequestOptions(query));
       return res.data.products.map(
         (p): ProductSearchInfo => ({
           name: p.productName,

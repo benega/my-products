@@ -16,7 +16,7 @@ export class ProductsController {
   }
 
   @Get('/favourites')
-  async fetchFavourites(@Query('query') query: string) {
+  async searchFavourites(@Query('query') query: string) {
     return this.repository.getFavourites(query);
   }
 }
