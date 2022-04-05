@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
-import { ProductsSearchFacade } from 'src/infra/products-search-apis/products-search-facade';
+import { InfraModule } from 'src/infra/infra.module';
 
 @Module({
-  providers: [ProductsService, ProductsSearchFacade],
+  imports: [InfraModule],
+  providers: [ProductsService],
   controllers: [ProductsController],
 })
 export class ProductsModule {}
