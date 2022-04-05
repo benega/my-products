@@ -10,13 +10,13 @@ export class ProductsController {
   }
 
   @Get()
-  async fetchProducts(@Query('name') name?: string) {
-    console.log('query name', name);
-    return this.repository.list();
+  async searchProducts(@Query('query') query: string) {
+    console.log('query', query);
+    return this.repository.search(query);
   }
 
   @Get('/favourites')
-  async fetchFavourites(@Query('name') name?: string) {
-    return this.repository.getFavourites();
+  async fetchFavourites(@Query('query') query: string) {
+    return this.repository.getFavourites(query);
   }
 }

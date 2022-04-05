@@ -1,3 +1,4 @@
+import { ProductsSearchFacade } from 'src/infra/products-search-apis/products-search-facade';
 import { Product } from '../models/product';
 
 const products: Product[] = [
@@ -8,11 +9,28 @@ const products: Product[] = [
 ];
 
 export class ProductsRepository {
+  productsSearch: ProductsSearchFacade;
+
+  constructor() {
+    this.productsSearch = new ProductsSearchFacade();
+  }
+
   list(): Product[] {
     return products;
   }
 
-  getFavourites(): Product[] {
-    return this.list().filter((p) => p.isFavourited);
+  async search(query: string): Promise<Product[]> {
+    const search = await this.productsSearch.search(query);
+    return search.map((p) => ({
+      id: '',
+      isFavourited: false,
+      name: p.name,
+      price: p.price,
+    }));
+  }
+
+  async getFavourites(query: string): Promise<Product[]> {
+    const res = await this.search(query);
+    return res.filter((p) => p.isFavourited);
   }
 }
