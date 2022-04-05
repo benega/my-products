@@ -1,22 +1,18 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { ProductsRepository } from './repositories/products.repository';
+import { ProductsService } from './products.service';
 
 @Controller('products')
 export class ProductsController {
-  repository: ProductsRepository;
-
-  constructor() {
-    this.repository = new ProductsRepository();
-  }
+  constructor(private productsService: ProductsService) {}
 
   @Get()
   async searchProducts(@Query('query') query: string) {
     console.log('query', query);
-    return this.repository.search(query);
+    return this.productsService.search(query);
   }
 
   @Get('/favourites')
   async searchFavourites(@Query('query') query: string) {
-    return this.repository.getFavourites(query);
+    return this.productsService.getFavourites(query);
   }
 }

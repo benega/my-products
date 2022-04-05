@@ -1,7 +1,9 @@
+import { Injectable } from '@nestjs/common';
 import { ProductSearchInfo } from './product-search-info';
 import { ProductsSearchApi } from './products-search-api';
 import { SephoraApi } from './sephora-api';
 
+@Injectable()
 export class ProductsSearchFacade {
   private apis: ProductsSearchApi[];
 
