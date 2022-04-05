@@ -18,10 +18,6 @@ const prepareRequestOptions = (query: string): AxiosRequestConfig<any> => ({
 
 export class SephoraApi implements ProductsSearchApi {
   async search(query: string): Promise<ProductSearchInfo[]> {
-    console.log('MONGO_URI', process.env.MONGO_URI);
-    console.log('SEPHORA_API_HOST', process.env.SEPHORA_API_HOST);
-    console.log('SEPHORA_API_KEY', process.env.SEPHORA_API_KEY);
-
     try {
       const res = await axios.request(prepareRequestOptions(query));
       return res.data.products.map(
