@@ -11,14 +11,9 @@ export class ProductsService {
   }
 
   async getByName(name: string): Promise<Product> {
-    const res = await this.search(name);
-    console.log(
-      'getByName',
-      name,
-      res,
-      res.find((p) => p.name == name),
-    );
-    return res.find((p) => p.name == name);
+    const encodedName = encodeURI(name);
+    const res = await this.search(encodedName);
+    return res.find((p) => encodeURI(p.name) == encodedName);
   }
 
   async getFavourites(query: string): Promise<Product[]> {

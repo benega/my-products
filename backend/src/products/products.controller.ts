@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ProductsService } from './products.service';
 
 @Controller('products')
@@ -12,10 +12,10 @@ export class ProductsController {
     return this.productsService.search(query);
   }
 
-  @Get()
-  async getByName(@Query('name') name: string) {
-    console.log('searchProducts', name);
-    console.log('searchProducts decodeURI', decodeURI(name));
+  @Get('/:name')
+  async getByName(@Param('name') name: string) {
+    console.log('getByName', name);
+    console.log('getByName decodeURI', decodeURI(name));
     return this.productsService.getByName(name);
   }
 
