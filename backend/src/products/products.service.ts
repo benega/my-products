@@ -23,20 +23,23 @@ export class ProductsService {
     private readonly productModel: Model<Product>,
   ) {}
 
-  async search(query: string): Promise<ProductDto[]> {
-    return this.productsSearch.search(query);
+  async search(user: User, query: string): Promise<ProductDto[]> {
+    const products = await this.productsSearch.search(query);
+    const favourites = (await this.getFavouritesByUser(user)).products || [];
+    products.forEach((p) => {
+      p.isFavourited = favourites.some((f) => f.name === p.name);
+    });
+    return products;
   }
 
-  async getByName(name: string): Promise<ProductDto> {
+  async getByName(user: User, name: string): Promise<ProductDto> {
     const encodedName = encodeURI(name);
-    const res = await this.search(encodedName);
+    const res = await this.search(user, encodedName);
     return res.find((p) => encodeURI(p.name) == encodedName);
   }
 
-  async getFavourites(user: User, name?: string): Promise<ProductDto[]> {
-    const favouriteProducts = await this.favouriteProductsModel
-      .findOne({ user })
-      .populate('products');
+  async searchFavourites(user: User, name?: string): Promise<ProductDto[]> {
+    const favouriteProducts = await this.getFavouritesByUser(user);
     const products = favouriteProducts?.products || [];
     return name
       ? products.filter((p) => p.name === name).map(parseDto)
@@ -45,12 +48,7 @@ export class ProductsService {
 
   async makeFavourite(user: User, productDto: ProductDto): Promise<void> {
     const product = await this.getOrUpdateProductFromDB(productDto);
-
-    let favouriteProducts = await this.favouriteProductsModel.findOne({
-      user,
-    });
-
-    console.log('favouriteProducts', favouriteProducts);
+    let favouriteProducts = await this.getFavouritesByUser(user);
 
     if (!favouriteProducts) {
       favouriteProducts = new this.favouriteProductsModel({
@@ -65,14 +63,13 @@ export class ProductsService {
   }
 
   async removeFavourite(user: User, productDto: ProductDto): Promise<void> {
-    const favouriteProducts = await this.favouriteProductsModel.findOne({
-      user,
-    });
+    const favouriteProducts = await this.getFavouritesByUser(user);
 
     if (favouriteProducts) {
       favouriteProducts.products = favouriteProducts.products.filter(
         (p) => p.name !== productDto.name,
       );
+      console.log('favouriteProducts remove', favouriteProducts.products);
       favouriteProducts.save();
     }
   }
@@ -88,5 +85,9 @@ export class ProductsService {
     }
 
     return product;
+  }
+
+  private async getFavouritesByUser(user: User): Promise<FavouriteProducts> {
+    return this.favouriteProductsModel.findOne({ user }).populate('products');
   }
 }

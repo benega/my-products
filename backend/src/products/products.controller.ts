@@ -21,28 +21,22 @@ export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
   @Get()
-  async searchProducts(@Query('query') query: string) {
-    console.log('searchProducts', query);
-    console.log('searchProducts decodeURI', decodeURI(query));
-    return this.productsService.search(query);
+  async searchProducts(@Req() req: any, @Query('query') query: string) {
+    return this.productsService.search(getUserFromReq(req), query);
   }
 
   @Get('/name/:name')
-  async getByName(@Param('name') name: string) {
-    console.log('getByName', name);
-    console.log('getByName decodeURI', decodeURI(name));
-    return this.productsService.getByName(name);
+  async getByName(@Req() req: any, @Param('name') name: string) {
+    return this.productsService.getByName(getUserFromReq(req), name);
   }
 
   @Get('/favourite')
   async searchFavourites(@Req() req: any, @Query('name') name: string) {
-    console.log('search favourites');
-    return this.productsService.getFavourites(getUserFromReq(req), name);
+    return this.productsService.searchFavourites(getUserFromReq(req), name);
   }
 
   @Post('/favourite')
   async makeFavourite(@Req() req: any, @Body() productDto: ProductDto) {
-    console.log('makeFavourite', productDto);
     return this.productsService.makeFavourite(getUserFromReq(req), productDto);
   }
 
