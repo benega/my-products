@@ -1,4 +1,4 @@
-.App {
+.Products {
   text-align: center;
   background: #efefef;
   height: 100vh;
@@ -6,12 +6,12 @@
   flex-direction: column;
 }
 
-.App-logo {
+.Products-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
-.App-header {
+.Products-header {
   text-align: right;
   background-color: #282c34;
   display: flex;
@@ -23,11 +23,11 @@
   padding: 12px;
 }
 
-.App-header h1 {
+.Products-header h1 {
   font-size: 24px;
 }
 
-.App-content {
+.Products-content {
   flex: 1 1;
   display: flex;
   flex-direction: column;
@@ -37,11 +37,11 @@
   margin: 8px;
 }
 
-.App-footer {
+.Products-footer {
   background-color: #282c34;
   color: white;
   padding: 4px;
 }
-.App-link {
+.Products-link {
   color: #61dafb;
 }

@@ -7,7 +7,9 @@ import { makeProducts } from './main/factories/pages/products-factory';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router makeProducts={makeProducts}/>
+    <div className="App">
+      <Router makeProducts={makeProducts} />
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );
