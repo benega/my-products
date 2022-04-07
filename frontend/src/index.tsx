@@ -7,7 +7,7 @@ import { makeProducts } from './main/factories/pages/products-factory';
 
 ReactDOM.render(
   <React.StrictMode>
-    <div className="App">
+    <div className="App overflow-container">
       <Router makeProducts={makeProducts} />
     </div>
   </React.StrictMode>,

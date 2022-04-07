@@ -1,7 +1,5 @@
 .ProductListContainer {
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
+    width: 400px;
 }
 
 .ProductList {

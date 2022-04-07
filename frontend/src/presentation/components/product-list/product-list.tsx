@@ -26,7 +26,7 @@ const ProductList: React.FC<Props> = ({ searchProducts }) => {
     };
 
     return (
-        <div className="ProductListContainer">
+        <div className="ProductListContainer overflow-container">
             <InputSearch onChange={handleInputChange} />
             <button type="button" onClick={updateSearch}>Search</button>
             <div className="ProductList">
