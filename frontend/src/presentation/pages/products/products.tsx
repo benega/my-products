@@ -11,7 +11,7 @@ type Props = {
 const Products: React.FC<Props> = ({ searchProducts }) => {
   return (
     <div className="Products overflow-container">
-      <AppHeader />
+      <AppHeader showLogin/>
       <div className="Products-content">
         <ProductList searchProducts={searchProducts}/>
       </div>

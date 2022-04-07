@@ -1,11 +1,15 @@
 import React from 'react';
 import './app-header.css';
 
-const AppHeader: React.FC = () => {
+type Props = {
+  showLogin?: boolean;
+}
+
+const AppHeader: React.FC<Props> = ({ showLogin = false }) => {
   return (
     <header className="App-header">
       <h1>My Products App</h1>
-      <div>Login</div>
+      {showLogin && <div>Login</div>}
     </header>
   );
 }
