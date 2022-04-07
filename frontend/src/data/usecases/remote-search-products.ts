@@ -1,5 +1,6 @@
 import { SearchProducts } from "../../domain/usecases/search-products";
 import { ProductModel } from "../../domain/models/product/product-model";
+import { HttpClient } from "../protocols/http-client";
 
 const products: ProductModel[] = [
     {
@@ -106,7 +107,10 @@ const products: ProductModel[] = [
     },
 ];
 
-export class RemoteSearchProducts implements SearchProducts {
+export class RemoteSearchProducts implements SearchProducts {    
+    constructor(private readonly httpClient: HttpClient) {
+        
+    }
     async search(params: SearchProducts.Params): Promise<SearchProducts.Model> {
         return products;
     }
