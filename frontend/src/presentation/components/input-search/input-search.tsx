@@ -1,14 +1,12 @@
 import React from 'react';
 import './input-search.css';
 
-type Props = {
-    onChange: (value: string) => void;
-}
+type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-const InputSearch: React.FC<Props> = () => {
+const InputSearch: React.FC<Props> = (props) => {
     return (
         <div className="InputSearch">
-            <input type={'text'} placeholder="Type the name of the product"/>
+            <input {...props} type={'text'} placeholder="Type the name of the product" />
         </div>
     );
 }

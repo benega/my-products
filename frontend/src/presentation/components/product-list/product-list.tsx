@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { ProductModel } from '../../../domain/models/product/product-model';
 import { SearchProducts } from '../../../domain/usecases/search-products';
 import InputSearch from '../input-search/input-search';
@@ -8,22 +8,27 @@ import './product-list.css';
 type Props = {
     searchProducts: SearchProducts
 }
-
 const ProductList: React.FC<Props> = ({ searchProducts }) => {
     const [products, setProducts] = useState<ProductModel[]>([]);
+    const [searchName, setSearchName] = useState('');
 
-    useEffect(() => {
-        const updateSearch = async () => {
-            const res = await searchProducts.search({ name: '' });
+    const updateSearch = async () => {
+        if (searchName.length >= 3) {
+            const res = await searchProducts.search({ name: searchName });
             setProducts(res);
+        } else {
+            setProducts([]);
         }
-        updateSearch();
-    }, [searchProducts])
+    };
+
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchName(e.target.value);
+    };
 
     return (
         <div className="ProductListContainer">
-            <InputSearch onChange={() => { }} />
-            <button>Search</button>
+            <InputSearch onChange={handleInputChange} />
+            <button type="button" onClick={updateSearch}>Search</button>
             <div className="ProductList">
                 {products.map((p, index) =>
                     <ProductCard
