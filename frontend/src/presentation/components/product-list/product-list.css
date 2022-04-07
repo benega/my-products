@@ -1,3 +1,31 @@
+.ProductListContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
 .ProductList {
     overflow-y: auto;
+    margin-top: 16px;
+}
+
+.ProductListContainer button {
+    width: 100px;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    align-self: end;
+    margin-right: 12px;
+}
+
+.ProductListContainer button:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
 }

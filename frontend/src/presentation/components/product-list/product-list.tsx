@@ -1,15 +1,16 @@
 import React from 'react';
+import InputSearch from '../input-search/input-search';
 import ProductCard from '../product-card/product-card';
 import './product-list.css';
 
-type ProductType = {
+type ProdutType = {
     name: string;
     price: number;
     pictureUrl: string;
     isFavourited: boolean;
 }
 
-const products: ProductType[] = [
+const products: ProdutType[] = [
     {
         name: 'Tattoo Waterproof Liquid Eyeliner',
         price: 100,
@@ -116,15 +117,19 @@ const products: ProductType[] = [
 
 const ProductList: React.FC = () => {
     return (
-        <div className="ProductList">
-            {products.map((p, index) =>
-                <ProductCard
-                    key={index}
-                    prodName={p.name}
-                    price={p.price}
-                    isFavourited={p.isFavourited}
-                    pictureUrl={p.pictureUrl} />
-            )}
+        <div className="ProductListContainer">
+            <InputSearch onChange={() => {}}/>
+            <button>Search</button>
+            <div className="ProductList">
+                {products.map((p, index) =>
+                    <ProductCard
+                        key={index}
+                        prodName={p.name}
+                        price={p.price}
+                        isFavourited={p.isFavourited}
+                        pictureUrl={p.pictureUrl} />
+                )}
+            </div>
         </div>
     );
 }
