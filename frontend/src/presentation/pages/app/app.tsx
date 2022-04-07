@@ -1,4 +1,5 @@
 import React from 'react';
+import ProductList from '../../components/product-list/product-list';
 import './app.css';
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
         <div>Login</div>
       </header>
       <div className="App-content">
-        content
+        <ProductList />
       </div>
       <footer className="App-footer">
         <small>Developer: thiagobenega@gmail.com</small>
