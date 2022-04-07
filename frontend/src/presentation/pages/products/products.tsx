@@ -1,8 +1,8 @@
 import React from 'react';
 import ProductList from '../../components/product-list/product-list';
-import './app.css';
+import './products.css';
 
-function App() {
+function Products() {
   return (
     <div className="App">
       <header className="App-header">
@@ -19,4 +19,4 @@ function App() {
   );
 }
 
-export default App;
+export default Products;

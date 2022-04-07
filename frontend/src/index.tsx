@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './presentation/pages/app/app';
+import Router from './presentation/components/router/router';
 import reportWebVitals from './reportWebVitals';
+import { makeProducts } from './main/factories/pages/products-factory';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router makeProducts={makeProducts}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
