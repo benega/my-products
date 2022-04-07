@@ -1,5 +1,5 @@
 import React from 'react';
-import Product from '../product/product';
+import ProductCard from '../product-card/product-card';
 import './product-list.css';
 
 type ProductType = {
@@ -118,7 +118,7 @@ const ProductList: React.FC = () => {
     return (
         <div className="ProductList">
             {products.map((p, index) =>
-                <Product
+                <ProductCard
                     key={index}
                     prodName={p.name}
                     price={p.price}

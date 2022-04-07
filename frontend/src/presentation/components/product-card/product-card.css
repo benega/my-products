@@ -1,4 +1,4 @@
-.Product {
+.ProductCard {
     display: flex;
     margin: 12px;
     max-width: 400px;
@@ -8,23 +8,23 @@
     box-shadow: 0px 2px 4px -1px #3230309c;
 }
 
-.Product-img img {
+.ProductCard-img img {
     width: 48px;
     margin-right: 8px;
 }
 
-.Product-info {
+.ProductCard-info {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.Product-info-name {
+.ProductCard-info-name {
     margin-right: 8px;
 }
 
-.Product .star-icon {
+.ProductCard .star-icon {
     width: 24px;
     height: 24px;
 }
