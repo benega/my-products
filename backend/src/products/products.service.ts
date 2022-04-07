@@ -25,7 +25,7 @@ export class ProductsService {
 
   async search(user: User, query: string): Promise<ProductDto[]> {
     const products = await this.productsSearch.search(query);
-    const favourites = (await this.getFavouritesByUser(user)).products || [];
+    const favourites = (await this.getFavouritesByUser(user))?.products || [];
     products.forEach((p) => {
       p.isFavourited = favourites.some((f) => f.name === p.name);
     });
@@ -69,7 +69,6 @@ export class ProductsService {
       favouriteProducts.products = favouriteProducts.products.filter(
         (p) => p.name !== productDto.name,
       );
-      console.log('favouriteProducts remove', favouriteProducts.products);
       favouriteProducts.save();
     }
   }
@@ -88,6 +87,7 @@ export class ProductsService {
   }
 
   private async getFavouritesByUser(user: User): Promise<FavouriteProducts> {
+    if (!user) return null;
     return this.favouriteProductsModel.findOne({ user }).populate('products');
   }
 }

@@ -18,7 +18,6 @@ export class ProductsSearchFacade {
 
   async getByName(name: string): Promise<ProductDto> {
     const res = await this.search(name);
-    console.log('getByName', name, res);
     return res.find((p) => p.name == name);
   }
 }
