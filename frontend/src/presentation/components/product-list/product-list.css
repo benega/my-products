@@ -7,7 +7,7 @@
     margin-top: 16px;
 }
 
-.ProductListContainer button {
+.ProductListContainer .search-button {
     width: 100px;
     color: #fff;
     background-color: #007bff;
@@ -22,7 +22,7 @@
     margin-right: 12px;
 }
 
-.ProductListContainer button:hover {
+.ProductListContainer .search-button:hover {
     color: #fff;
     background-color: #0069d9;
     border-color: #0062cc;

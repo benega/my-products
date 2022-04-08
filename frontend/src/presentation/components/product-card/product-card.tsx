@@ -8,9 +8,22 @@ type Props = {
     price: number;
     pictureUrl: string;
     isFavourited: boolean;
+    onFavourite: () => void;
+    onUnfavourite: () => void;
 }
 
-const ProductCard: React.FC<Props> = ({ prodName, price, pictureUrl: image, isFavourited }) => {
+const ProductCard: React.FC<Props> = ({
+    prodName, price, pictureUrl: image, isFavourited,
+    onFavourite, onUnfavourite
+}) => {
+    
+    const handleClick = () => {
+        if (isFavourited)
+            onUnfavourite();
+        else
+            onFavourite();
+    };
+
     return (
         <div className="ProductCard">
             <div className="ProductCard-img">
@@ -20,7 +33,9 @@ const ProductCard: React.FC<Props> = ({ prodName, price, pictureUrl: image, isFa
                 <span className="ProductCard-info-name">{prodName}</span>
                 <span className="ProductCard-info-price">$ {price}</span>
             </div>
-            {isFavourited ? <StarFilled /> : <StartEmpty />}
+            <button className="ProductCard-favourite-btn" onClick={handleClick}>
+                {isFavourited ? <StarFilled /> : <StartEmpty />}
+            </button>
         </div>
     );
 }

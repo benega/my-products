@@ -28,3 +28,12 @@
     width: 24px;
     height: 24px;
 }
+
+.ProductCard-favourite-btn {
+    padding: 0px;
+    margin: 0px;
+    height: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}

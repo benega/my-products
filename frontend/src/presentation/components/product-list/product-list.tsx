@@ -1,14 +1,16 @@
 import React, { ChangeEvent, useState } from 'react';
 import { ProductModel } from '../../../domain/models/product-model';
+import { FavouriteProduct } from '../../../domain/usecases/favourite-product';
 import { SearchProducts } from '../../../domain/usecases/search-products';
 import InputSearch from '../input-search/input-search';
 import ProductCard from '../product-card/product-card';
 import './product-list.css';
 
 type Props = {
-    searchProducts: SearchProducts
+    searchProducts: SearchProducts,
+    favouriteProduct: FavouriteProduct,
 }
-const ProductList: React.FC<Props> = ({ searchProducts }) => {
+const ProductList: React.FC<Props> = ({ searchProducts, favouriteProduct }) => {
     const [products, setProducts] = useState<ProductModel[]>([]);
     const [searchName, setSearchName] = useState('');
 
@@ -25,10 +27,24 @@ const ProductList: React.FC<Props> = ({ searchProducts }) => {
         setSearchName(e.target.value);
     };
 
+    const handleFavouriteProduct = (product: ProductModel, isFavourited: boolean) => {
+        if (isFavourited)
+            favouriteProduct.add(product);
+        else
+            favouriteProduct.remove(product);
+
+        setProducts(products.map((p) => {
+            if (p.name === product.name) {
+                return { ...p, isFavourited }
+            }
+            return p;
+        }))
+    };
+
     return (
         <div className="ProductListContainer overflow-container">
             <InputSearch onChange={handleInputChange} />
-            <button type="button" onClick={updateSearch}>Search</button>
+            <button className="search-button" type="button" onClick={updateSearch}>Search</button>
             <div className="ProductList">
                 {products.map((p, index) =>
                     <ProductCard
@@ -36,7 +52,10 @@ const ProductList: React.FC<Props> = ({ searchProducts }) => {
                         prodName={p.name}
                         price={p.price}
                         isFavourited={!!p.isFavourited}
-                        pictureUrl={p.pictureUrl} />
+                        pictureUrl={p.pictureUrl}
+                        onFavourite={() => handleFavouriteProduct(p, true)}
+                        onUnfavourite={() => handleFavouriteProduct(p, false)}
+                    />
                 )}
             </div>
         </div>
