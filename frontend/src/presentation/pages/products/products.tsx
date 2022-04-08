@@ -4,6 +4,7 @@ import { FavouriteProduct } from '../../../domain/usecases/favourite-product';
 import { SearchProducts } from '../../../domain/usecases/search-products';
 import AppFooter from '../../components/app-footer/app-footer';
 import AppHeader from '../../components/app-header/app-header';
+import Button from '../../components/button/button';
 import InputSearch from '../../components/input-search/input-search';
 import ProductList from '../../components/product-list/product-list';
 import './products.css';
@@ -37,10 +38,9 @@ const Products: React.FC<Props> = ({ searchProducts, favouriteProduct }) => {
       favouriteProduct.remove(product);
 
     setProducts(products.map((p) => {
-      if (p.name === product.name) {
-        return { ...p, isFavourited }
-      }
-      return p;
+      return p.name === product.name
+        ? { ...p, isFavourited }
+        : p;
     }))
   };
 
@@ -50,7 +50,7 @@ const Products: React.FC<Props> = ({ searchProducts, favouriteProduct }) => {
       <div className="Products-content">
         <div className="Products-search-header">
           <InputSearch onChange={handleInputChange} />
-          <button className="search-button" type="button" onClick={updateSearch}>Search</button>
+          <Button type="button" onClick={updateSearch}>Search</Button>
         </div>
         <ProductList
           products={products}
