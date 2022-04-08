@@ -4,13 +4,19 @@ import './index.css';
 import Router from './presentation/components/router/router';
 import reportWebVitals from './reportWebVitals';
 import { makeProducts } from './main/factories/pages/products-factory';
+import { makeLogin } from './main/factories/pages/login-factory';
+import { makeFavourites } from './main/factories/pages/favourites-factory';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container as Element);
 root.render(
   <React.StrictMode>
     <div className="App overflow-container">
-      <Router makeProducts={makeProducts} />
+      <Router
+        makeLogin={makeLogin}
+        makeProducts={makeProducts}
+        makeFavourites={makeFavourites}
+      />
     </div>
   </React.StrictMode>
 );

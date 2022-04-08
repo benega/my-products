@@ -1,14 +1,29 @@
 import React from 'react';
 import { ProductModel } from '../../../domain/models/product-model';
+import { FavouriteProduct } from '../../../domain/usecases/favourite-product';
 import ProductCard from '../product-card/product-card';
 import './product-list.css';
 
 type Props = {
     products: ProductModel[],
-    onFavourite: (prod: ProductModel) => void,
-    onUnfavourite: (prod: ProductModel) => void,
+    setProducts: React.Dispatch<React.SetStateAction<ProductModel[]>>,
+    favouriteProduct: FavouriteProduct,
 }
-const ProductList: React.FC<Props> = ({ products, onFavourite, onUnfavourite }) => {
+const ProductList: React.FC<Props> = ({ products, setProducts, favouriteProduct }) => {
+
+    const handleFavouriteProduct = (product: ProductModel, isFavourited: boolean) => {
+        if (isFavourited)
+            favouriteProduct.add(product);
+        else
+            favouriteProduct.remove(product);
+
+        setProducts(products.map((p) => {
+            return p.name === product.name
+                ? { ...p, isFavourited }
+                : p;
+        }))
+    };
+
     return (
         <div className="ProductListContainer overflow-container">
             <div className="ProductList">
@@ -19,8 +34,8 @@ const ProductList: React.FC<Props> = ({ products, onFavourite, onUnfavourite }) 
                         price={p.price}
                         isFavourited={!!p.isFavourited}
                         pictureUrl={p.pictureUrl}
-                        onFavourite={() => onFavourite(p)}
-                        onUnfavourite={() => onUnfavourite(p)}
+                        onFavourite={() => handleFavouriteProduct(p, true)}
+                        onUnfavourite={() => handleFavouriteProduct(p, false)}
                     />
                 )}
             </div>
