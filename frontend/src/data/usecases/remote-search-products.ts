@@ -3,16 +3,19 @@ import { HttpClient } from "../protocols/http-client";
 
 export class RemoteSearchProducts implements SearchProducts {
     constructor(
-        private readonly url: string,
+        private readonly baseUrl: string,
         private readonly httpClient: HttpClient<SearchProducts.Model>
     ) { }
 
     async search(params: SearchProducts.Params): Promise<SearchProducts.Model> {
+        const isUserLogged = !!localStorage.accessToken;
+        const url = this.baseUrl + (isUserLogged ? '' : '/public');
         const res = await this.httpClient.request({
             method: "get",
-            url: `${this.url}/public?query=${params.name}`,
-            // url: `http://localhost:3000/products/public?query=${params.name}`,
+            url: `${url}?query=${params.name}`,
+            authorized: isUserLogged,
         });
         return res.body || [];
     }
+
 }

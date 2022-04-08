@@ -3,6 +3,7 @@ export type HttpRequest = {
     method: HttpMethod;
     body?: any;
     headers?: any;
+    authorized?: boolean;
 };
 
 export interface HttpClient<R = any> {
