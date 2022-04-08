@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import { ProductModel } from '../../../domain/models/product/product-model';
+import { ProductModel } from '../../../domain/models/product-model';
 import { SearchProducts } from '../../../domain/usecases/search-products';
 import InputSearch from '../input-search/input-search';
 import ProductCard from '../product-card/product-card';

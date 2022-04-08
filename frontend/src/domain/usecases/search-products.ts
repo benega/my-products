@@ -1,4 +1,4 @@
-import { ProductModel } from "../models/product/product-model";
+import { ProductModel } from "../models/product-model";
 
 export interface SearchProducts {
     search: (params: SearchProducts.Params) => Promise<SearchProducts.Model>

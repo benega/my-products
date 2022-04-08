@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport/dist/auth.guard';
 import { RegisterDTO } from 'src/user/models/register.dto';
 import { UserService } from 'src/user/user.service';
@@ -24,6 +31,7 @@ export class AuthController {
   }
 
   @Post('register')
+  @HttpCode(200)
   async register(@Body() registerDTO: RegisterDTO) {
     const user = await this.userService.create(registerDTO);
     const payload = { email: user.email };
@@ -32,6 +40,7 @@ export class AuthController {
   }
 
   @Post('login')
+  @HttpCode(200)
   async login(@Body() loginDTO: LoginDTO) {
     const user = await this.userService.login(loginDTO);
     const payload = { email: user.email };

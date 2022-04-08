@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Query,
@@ -45,18 +46,21 @@ export class ProductsController {
   }
 
   @Get('/favourite')
+  @HttpCode(200)
   @UseGuards(AuthGuard('jwt'))
   async searchFavourites(@Req() req: any, @Query('name') name: string) {
     return this.productsService.searchFavourites(getUserFromReq(req), name);
   }
 
   @Post('/favourite')
+  @HttpCode(200)
   @UseGuards(AuthGuard('jwt'))
   async makeFavourite(@Req() req: any, @Body() productDto: ProductDto) {
     return this.productsService.makeFavourite(getUserFromReq(req), productDto);
   }
 
   @Delete('/favourite')
+  @HttpCode(200)
   @UseGuards(AuthGuard('jwt'))
   async removeFavourite(@Req() req: any, @Body() productDto: ProductDto) {
     return this.productsService.removeFavourite(

@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Login from '../../pages/login/login'
+import { makeLogin } from '../../../main/factories/pages/login-factory'
 
 type Props = {
     makeProducts: React.FC
@@ -10,7 +10,7 @@ const Router: React.FC<Props> = ({makeProducts}) => {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={makeProducts({})} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={makeLogin({})} />
       </Routes>
     </BrowserRouter>
   )
