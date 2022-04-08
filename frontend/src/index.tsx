@@ -1,17 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom/client';
 import './index.css';
 import Router from './presentation/components/router/router';
 import reportWebVitals from './reportWebVitals';
 import { makeProducts } from './main/factories/pages/products-factory';
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = ReactDOM.createRoot(container as Element);
+root.render(
   <React.StrictMode>
     <div className="App overflow-container">
       <Router makeProducts={makeProducts} />
     </div>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
