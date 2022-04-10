@@ -30,6 +30,19 @@ export class RemoteFavouriteProduct implements FavouriteProduct {
         this.handleResponse(httpResponse);
     }
 
+    async getAll(): Promise<ProductModel[]> {
+        const httpRes = await this.httpClient.request({
+            method: "get",
+            url: this.url,
+            authorized: true,
+        });
+        this.handleResponse(httpRes);
+
+        const data: any = httpRes.body;
+        console.log('favourites getAll', data);
+        return data as ProductModel[];
+    }
+
     handleResponse(res: HttpResponse) {
         switch (res.statusCode) {
             case HttpStatusCode.ok:

@@ -7,10 +7,11 @@ import { FavouriteProducts } from './models/favourite-products.interface';
 import { User } from 'src/user/models/user';
 import { ProductDto } from './dto/product.dto';
 
-const parseDto = (product: Product) => ({
+const parseDto = (product: Product, isFavourited = false) => ({
   name: product.name,
   pictureUrl: product.pictureUrl,
   price: product.price,
+  isFavourited,
 });
 
 @Injectable()
@@ -42,8 +43,8 @@ export class ProductsService {
     const favouriteProducts = await this.getFavouritesByUser(user);
     const products = favouriteProducts?.products || [];
     return name
-      ? products.filter((p) => p.name === name).map(parseDto)
-      : products.map(parseDto);
+      ? products.filter((p) => p.name === name).map((p) => parseDto(p, true))
+      : products.map((p) => parseDto(p, true));
   }
 
   async makeFavourite(user: User, productDto: ProductDto): Promise<void> {

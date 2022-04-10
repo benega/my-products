@@ -31,6 +31,19 @@ const Products: React.FC<Props> = ({ searchProducts, favouriteProduct }) => {
     setSearchName(e.target.value);
   };
 
+  const handleFavouriteProduct = (product: ProductModel, isFavourited: boolean) => {
+    if (isFavourited)
+      favouriteProduct.add(product);
+    else
+      favouriteProduct.remove(product);
+
+    setProducts(products.map((p) => {
+      return p.name === product.name
+        ? { ...p, isFavourited }
+        : p;
+    }))
+  };
+
   return (
     <div className="Products overflow-container">
       <AppHeader showLogin />
@@ -41,8 +54,7 @@ const Products: React.FC<Props> = ({ searchProducts, favouriteProduct }) => {
         </div>
         <ProductList
           products={products}
-          setProducts={setProducts}
-          favouriteProduct={favouriteProduct}
+          handleFavouriteProduct={handleFavouriteProduct}
         />
       </div>
       <AppFooter />

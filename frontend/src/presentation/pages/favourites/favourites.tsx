@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ProductModel } from '../../../domain/models/product-model';
 import { FavouriteProduct } from '../../../domain/usecases/favourite-product';
 import AppFooter from '../../components/app-footer/app-footer';
@@ -11,14 +11,33 @@ type Props = {
 }
 const Favourites: React.FC<Props> = ({ favouriteProduct }) => {
   const [products, setProducts] = useState<ProductModel[]>([]);
+
+
+  useEffect(() => {
+    const updateFavourites = async () => {
+      const res = await favouriteProduct.getAll();
+      setProducts(res);
+    }
+    updateFavourites();
+  }, [favouriteProduct])
+
+  const handleFavouriteProduct = (product: ProductModel, isFavourited: boolean) => {
+    if (isFavourited)
+      favouriteProduct.add(product);
+    else
+      favouriteProduct.remove(product);
+
+    setProducts(products.filter((p) => p.name !== product.name))
+  };
+
   return (
     <div className="Favourites overflow-container">
       <AppHeader showLogin />
       <div className="Favourites-content">
+        <h2>Favourite products</h2>
         <ProductList
           products={products}
-          setProducts={setProducts}
-          favouriteProduct={favouriteProduct}
+          handleFavouriteProduct={handleFavouriteProduct}
         />
       </div>
       <AppFooter />

@@ -13,3 +13,8 @@
 .App-header h1 {
   font-size: 24px;
 }
+
+.App-header nav ul {
+  display: flex;
+  list-style-type: none;
+}
