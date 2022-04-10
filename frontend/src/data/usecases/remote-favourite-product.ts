@@ -39,7 +39,6 @@ export class RemoteFavouriteProduct implements FavouriteProduct {
         this.handleResponse(httpRes);
 
         const data: any = httpRes.body;
-        console.log('favourites getAll', data);
         return data as ProductModel[];
     }
 

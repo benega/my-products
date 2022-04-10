@@ -41,10 +41,8 @@ const Login: React.FC<Props> = ({ authentication }) => {
         password: state.password
       })
       localStorage.setItem('accessToken', account.token)
-      console.log('navigate')
       navigate('/')
     } catch (error: any) {
-      console.log('error', error)
       setState({
         ...state,
         isLoading: false,
