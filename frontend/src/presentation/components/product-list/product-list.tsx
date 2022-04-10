@@ -5,9 +5,12 @@ import './product-list.css';
 
 type Props = {
     products: ProductModel[],
+    showFavouriteIcon: boolean,
     handleFavouriteProduct: (product: ProductModel, isFavourited: boolean) => void,
 }
-const ProductList: React.FC<Props> = ({ products, handleFavouriteProduct }) => {
+const ProductList: React.FC<Props> = ({
+    products, handleFavouriteProduct, showFavouriteIcon
+}) => {
     return (
         <div className="ProductListContainer overflow-container">
             <div className="ProductList">
@@ -16,6 +19,7 @@ const ProductList: React.FC<Props> = ({ products, handleFavouriteProduct }) => {
                         key={index}
                         prodName={p.name}
                         price={p.price}
+                        showFavouriteIcon={showFavouriteIcon}
                         isFavourited={!!p.isFavourited}
                         pictureUrl={p.pictureUrl}
                         onFavourite={() => handleFavouriteProduct(p, true)}

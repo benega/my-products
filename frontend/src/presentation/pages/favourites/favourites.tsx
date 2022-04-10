@@ -37,6 +37,7 @@ const Favourites: React.FC<Props> = ({ favouriteProduct }) => {
         <h2>Favourite products</h2>
         <ProductList
           products={products}
+          showFavouriteIcon
           handleFavouriteProduct={handleFavouriteProduct}
         />
       </div>

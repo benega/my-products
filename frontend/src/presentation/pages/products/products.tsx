@@ -44,9 +44,15 @@ const Products: React.FC<Props> = ({ searchProducts, favouriteProduct }) => {
     }))
   };
 
+  const showFavouriteIcon = !!localStorage.accessToken;
+
+  const handleLogout = () => {
+    setProducts([]);
+  };
+
   return (
     <div className="Products overflow-container">
-      <AppHeader showLogin />
+      <AppHeader showLogin onLogout={handleLogout} />
       <div className="Products-content">
         <div className="Products-search-header">
           <InputSearch onChange={handleInputChange} />
@@ -54,6 +60,7 @@ const Products: React.FC<Props> = ({ searchProducts, favouriteProduct }) => {
         </div>
         <ProductList
           products={products}
+          showFavouriteIcon={showFavouriteIcon}
           handleFavouriteProduct={handleFavouriteProduct}
         />
       </div>

@@ -5,9 +5,9 @@ import './app-header.css';
 
 type Props = {
   showLogin?: boolean;
+  onLogout?: () => void;
 }
-
-const AppHeader: React.FC<Props> = ({ showLogin = false }) => {
+const AppHeader: React.FC<Props> = ({ showLogin = false, onLogout }) => {
   const navigate = useNavigate();
   const [userLogged, setUserLogged] = useState(!!localStorage.accessToken);
 
@@ -19,6 +19,8 @@ const AppHeader: React.FC<Props> = ({ showLogin = false }) => {
     localStorage.removeItem('accessToken');
     setUserLogged(false);
     navigate('/');
+    if (onLogout)
+      onLogout();
   }
 
   const loginLogoutLink = !showLogin ? null : (

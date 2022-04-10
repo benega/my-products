@@ -7,6 +7,7 @@ type Props = {
     prodName: string;
     price: number;
     pictureUrl: string;
+    showFavouriteIcon: boolean;
     isFavourited: boolean;
     onFavourite: () => void;
     onUnfavourite: () => void;
@@ -14,15 +15,21 @@ type Props = {
 
 const ProductCard: React.FC<Props> = ({
     prodName, price, pictureUrl: image, isFavourited,
-    onFavourite, onUnfavourite
+    showFavouriteIcon, onFavourite, onUnfavourite
 }) => {
-    
+
     const handleClick = () => {
         if (isFavourited)
             onUnfavourite();
         else
             onFavourite();
     };
+
+    const favouriteBtn = showFavouriteIcon && (
+        <button className="ProductCard-favourite-btn" onClick={handleClick}>
+            {isFavourited ? <StarFilled /> : <StartEmpty />}
+        </button>
+    );
 
     return (
         <div className="ProductCard">
@@ -33,9 +40,7 @@ const ProductCard: React.FC<Props> = ({
                 <span className="ProductCard-info-name">{prodName}</span>
                 <span className="ProductCard-info-price">$ {price}</span>
             </div>
-            <button className="ProductCard-favourite-btn" onClick={handleClick}>
-                {isFavourited ? <StarFilled /> : <StartEmpty />}
-            </button>
+            {favouriteBtn}
         </div>
     );
 }
